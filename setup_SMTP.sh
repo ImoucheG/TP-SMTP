@@ -2,6 +2,8 @@
 ## Update System ##
 apt-get update -y && apt-get upgrade -y
 apt-get install sudo
+adduser epsi sudo
+adduser epsi root
 ## Install MysqlServer ##
 su epsi
 sudo debconf-set-selections <<< "mysql-server mysql-server/root_password password 3p$!"
