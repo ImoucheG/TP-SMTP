@@ -1,0 +1,10 @@
+apt-get install nginx 
+apt-get install php5-fpm php5-mysql
+cd /var/www
+git clone https://github.com/postfixadmin/postfixadmin
+chown -R www-data:www-data postfixadmin
+apt-get install -y php5-imap
+cd /tmp
+git clone https://github.com/ImoucheG/TP_SMTP
+cp TP_SMTP/ostfixadmin.conf /etc/nginx/sites-enabled/
+service nginx restart
