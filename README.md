@@ -1,1 +1,4 @@
-# TP_SMTPfff
+# TP-SMTP
+"""
+sh setup.sh
+"""
