@@ -6,14 +6,14 @@
 // organization
 //include "/etc/bind/zones.rfc1918";
 
-zone "gira-labos-nantes.ovh" {
+zone "labos-nantes.ovh" {
 	type master;
-	file "/etc/bind/db.gira-labos-nantes.ovh";
+	file "/etc/bind/db.labos-nantes.ovh";
 	forwarders{};
 };
 
 zone "56.168.192.in-addr.arpa" {
 	type master;
-	file "/etc/bind.db.gira-labos-nantes.ovh.inv";
+	file "/etc/bind.db.labos-nantes.ovh.inv";
 	forwarders{};
 };

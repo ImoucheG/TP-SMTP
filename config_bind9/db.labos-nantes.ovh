@@ -2,7 +2,7 @@
 ; BIND data file for local loopback interface
 ;
 $TTL	604800
-@	IN	SOA	gira.labos-nantes.ovh. root.labos-nantes.ovh. (
+@	IN	SOA	hostone.labos-nantes.ovh. root.labos-nantes.ovh. (
 			      2		; Serial
 			 604800		; Refresh
 			  86400		; Retry
