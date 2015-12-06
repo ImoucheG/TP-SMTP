@@ -50,3 +50,16 @@ cp /media/sf_VMShared/TP-SMTP/config_postfixadmin/config.inc.php /var/www/postfi
 mysql -u root -pmysql postfix < /media/sf_VMShared/TP-SMTP/config_postfixadmin/postfix.sql
 service nginx restart
 ## COnfiguration Postfix
+cp /etc/postfix/main.cf /etc/postfix/main.cf_bak
+cp -R /media/sf_VMShared/TP-SMTP/config_postfix/* /etc/postfix
+#Installation DOVECOT
+apt-get install -y dovecot-core dovecot-imapd dovecot-lmtpd dovecot-mysql
+mkdir -p /var/mail/vhosts/labos-nantes.ovh
+groupadd -g 5000 vmail 
+useradd -g vmail -u 5000 vmail -d /var/mail
+chown -R vmail:vmail /var/mail
+cp -R /media/sf_VMShared/TP-SMTP/conf_dovecot/* /etc/dovecot
+chown -R vmail:dovecot /etc/dovecot
+chmod -R o-rwx /etc/dovecot 
+service postfix restart
+service dovecot restart
