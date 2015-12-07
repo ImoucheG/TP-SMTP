@@ -67,7 +67,7 @@ mysql -u root -pmysql postfix < ./config/postfixadmin/postfix.sql
 cp /etc/postfix/main.cf /etc/postfix/main.cf_bak
 cp -R ./config/postfix/* /etc/postfix/
 # Generation SSL #
-cd /etc/ssl
+# cd /etc/ssl
 #openssl genrsa -out ca.key.pem 4096
 #openssl req -x509 -new -nodes -days 1460 -sha256 -key ca.key.pem -out ca.cert.pem
 #openssl genrsa -out mailserver.key 4096
@@ -85,6 +85,8 @@ cd /etc/ssl
 #openssl dhparam -out /etc/postfix/dh512.pem 512
 # A mettre au propre avec une bonne config
 #Installation DOVECOT
+
+cd /tmp/
 apt-get install -y dovecot-core dovecot-imapd dovecot-lmtpd dovecot-mysql
 mkdir -p /var/mail/vhosts/labos-nantes.ovh
 groupadd -g 5000 vmail
