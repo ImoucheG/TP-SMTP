@@ -1,7 +1,7 @@
 # Setup SMTP Server
 # Update System
 cp -R ./config/ /tmp/
-cd /tmp/TP-SMTP/
+cd /tmp/
 
 apt-get update -y && apt-get upgrade -y
 apt-get install -y sudo
@@ -49,7 +49,7 @@ mv postfixadmin-2.93 postfixadmin
 rm -rf postfixadmin-2.93.tar.gz
 chown -R root:root postfixadmin
 
-cd /tmp/TP-SMTP/
+cd /tmp/
 # Configuration PostfixAdmin #
 service apache2 restart
 # VirtualHost APACHE 2.0 #
