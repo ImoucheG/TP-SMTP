@@ -11,21 +11,21 @@ useradd epsi
 adduser epsi root
 adduser epsi sudo
 
-# Install MysqlServer
+# Install MySQL Server
 echo 'mysql-server mysql-server/root_password password mysql' | debconf-set-selections
 echo 'mysql-server mysql-server/root_password_again password mysql' | debconf-set-selections
 apt-get install -y mysql-server
 mysql_install_db
 
-# Install Nginx
-apt-get install -y nginx
+# Install Apache
+apt-get install -y apache2
 
 # Install PHP
-apt-get install -y php5-fpm php5-mysql php5-imap
-service nginx restart
+apt-get install -y php5 libapache2-mod-php5 php5-fpm php5-mysql php5-imap
+service apache2 restart
 
 # Install Domain
-cat ./config/misc/hostname >> /etc/hostname
+cat ./config/misc/hostname > /etc/hostname
 service hostname start
 
 cat ./config/misc/hosts >> /etc/hosts
@@ -38,26 +38,52 @@ service bind9 restart
 # Install PostfixAdmin
 #login : admin@labos-nantes.ovh
 #password : admin2015
-# !!!ATTENTION !!!Pour l'installation choisir : local only & comme domain : labos-nantes.ovh !!!!! ATTENTION
+# LOCAL ONLY & DOMAIN : hostone.gira.labos-nantes.ovh 
 apt-get install -y postfix postfix-mysql
 mysql -u root -pmysql < ./config/postfix/setup.sql
 cd /var/www/
+
 wget http://sourceforge.net/projects/postfixadmin/files/postfixadmin/postfixadmin-2.93/postfixadmin-2.93.tar.gz
 tar -xzf postfixadmin-2.93.tar.gz
 mv postfixadmin-2.93 postfixadmin
 rm -rf postfixadmin-2.93.tar.gz
-chown -R root:www-data postfixadmin
+chown -R root:root postfixadmin
 
 cd /tmp/TP-SMTP/
-cp ./config/postfixadmin/postfixadmin.conf /etc/nginx/sites-enabled/
+# Configuration PostfixAdmin #
+service apache2 restart
+# VirtualHost APACHE 2.0 #
+# Listen 8080 #
+cat ./config/apache2/ports.conf >> /etc/apache2/ports.conf
+cat ./config/apache2/000-default.conf >> /etc/apache2/sites-enabled/000-default.conf
+
+# Restart Apache #
+service apache2 restart
+# Password postfixadmin: postfix2015
+# User : g.imouche@gira.labos-nantes.ovh::gimouche2015 // a.rousseau@gira.labos-nantes.ovh::arousseau2015
+
 cp ./config/postfixadmin/config.inc.php /var/www/postfixadmin/
 mysql -u root -pmysql postfix < ./config/postfixadmin/postfix.sql
-service nginx restart
-
-## COnfiguration Postfix
 cp /etc/postfix/main.cf /etc/postfix/main.cf_bak
 cp -R ./config/postfix/* /etc/postfix/
-
+# Generation SSL #
+cd /etc/ssl
+#openssl genrsa -out ca.key.pem 4096
+#openssl req -x509 -new -nodes -days 1460 -sha256 -key ca.key.pem -out ca.cert.pem
+#openssl genrsa -out mailserver.key 4096
+#openssl req -new -sha256 -key mailserver.key -out mailserver.csr
+#openssl x509 -req -days 1460 -sha256 -in mailserver.csr -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -out mailserver.crt
+#chmod 444 ca.cert.pem
+#chmod 444 mailserver.crt
+#chmod 400 ca.key.pem
+#chmod 400 mailserver.key
+#mv ca.key.pem private/
+#mv ca.cert.pem certs/
+#mv mailserver.key private/
+#mv mailserver.crt certs/
+#openssl dhparam -out /etc/postfix/dh2048.pem 2048
+#openssl dhparam -out /etc/postfix/dh512.pem 512
+# A mettre au propre avec une bonne config
 #Installation DOVECOT
 apt-get install -y dovecot-core dovecot-imapd dovecot-lmtpd dovecot-mysql
 mkdir -p /var/mail/vhosts/labos-nantes.ovh

@@ -114,7 +114,6 @@ $CONF['database_tables'] = array (
 // This will be used to send emails from to create mailboxes and
 // from Send Email / Broadcast message pages.
 // Leave blank to send email from the logged-in Admin's Email address.
-$CONF['admin_email'] = 'admin@labos-nantes.ovh';
 
 // Mail Server
 // Hostname (FQDN) of your mail server.
