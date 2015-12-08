@@ -26,7 +26,7 @@ service apache2 restart
 
 # Install Domain
 cat ./config/misc/hostname > /etc/hostname
-service hostname start
+/etc/init.d/hostname.sh start
 
 cat ./config/misc/hosts >> /etc/hosts
 cat ./config/misc/hosts.conf >> /etc/hosts.conf
