@@ -26,19 +26,19 @@ service apache2 restart
 
 # Install Domain
 apt-get install resolvconf -y
-cp ./config/misc/resolv.conf > /etc/resolvconf/resolv.conf.d/base
+cp ./config/misc/resolv.conf /etc/resolvconf/resolv.conf.d/base
 
-cp ./config/misc/hostname > /etc/hostname
+cp ./config/misc/hostname /etc/hostname
 /etc/init.d/hostname.sh start
 
-cp ./config/misc/hosts > /etc/hosts
-cp ./config/misc/hosts.conf > /etc/hosts.conf
+cp ./config/misc/hosts /etc/hosts
+cp ./config/misc/hosts.conf /etc/hosts.conf
 
 apt-get install -y bind9 dnsutils
 cp -R ./config/bind9/* /etc/bind/
 service bind9 restart
 
-cp ./config/misc/interfaces > /etc/network/interfaces
+cp ./config/misc/interfaces /etc/network/interfaces
 ifdown eth0 eth1
 ifup eth0 eth1
 
