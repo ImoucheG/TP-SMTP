@@ -183,10 +183,10 @@ $CONF['page_size'] = '10';
 // a) a full mail address
 // b) only a localpart ('postmaster' => 'admin') - the alias target will point to the same domain
 $CONF['default_aliases'] = array (
-    'abuse' => 'abuse@change-this-to-your.domain.tld',
-    'hostmaster' => 'hostmaster@change-this-to-your.domain.tld',
-    'postmaster' => 'postmaster@change-this-to-your.domain.tld',
-    'webmaster' => 'webmaster@change-this-to-your.domain.tld'
+    'abuse' => 'abuse@gira.labos-nantes.ovh',
+    'hostmaster' => 'hostmaster@gira.labos-nantes.ovh',
+    'postmaster' => 'postmaster@gira.labos-nantes.ovh',
+    'webmaster' => 'webmaster@gira.labos-nantes.ovh'
 );
 
 // Mailboxes
@@ -318,7 +318,7 @@ $CONF['vacation'] = 'NO';
 // transport maps to handle virtual vacations. It does not need to be a
 // real domain (i.e. you don't need to setup DNS for it).
 // This domain must exclusively be used for vacation. Do NOT use it for "normal" mail addresses.
-$CONF['vacation_domain'] = 'autoreply.change-this-to-your.domain.tld';
+$CONF['vacation_domain'] = 'autoreply.gira.labos-nantes.ovh';
 
 // Vacation Control
 // If you want users to take control of vacation set this to 'YES'.
@@ -405,8 +405,8 @@ $CONF['header_text'] = ':: Postfix Admin ::';
 // Below information will be on all pages.
 // If you don't want the footer information to appear set this to 'NO'.
 $CONF['show_footer_text'] = 'YES';
-$CONF['footer_text'] = 'Return to change-this-to-your.domain.tld';
-$CONF['footer_link'] = 'http://change-this-to-your.domain.tld';
+$CONF['footer_text'] = 'Return to gira.labos-nantes.ovh';
+$CONF['footer_link'] = 'http://gira.labos-nantes.ovh';
 
 // MOTD ("Motto of the day")
 // You can display a MOTD below the menu on all pages.
