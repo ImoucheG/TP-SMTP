@@ -28,9 +28,11 @@ service apache2 restart
 cat ./config/misc/hostname > /etc/hostname
 /etc/init.d/hostname.sh start
 
-cat ./config/misc/hosts >> /etc/hosts
-cat ./config/misc/hosts.conf >> /etc/hosts.conf
-cat ./config/misc/resolv.conf >> /etc/resolv.conf
+cat ./config/misc/interfaces > /etc/network/interfaces
+cat ./config/misc/hosts > /etc/hosts
+cat ./config/misc/hosts.conf > /etc/hosts.conf
+cat ./config/misc/resolv.conf > /etc/resolv.conf
+
 apt-get install -y bind9 dnsutils
 cp -R ./config/bind9/* /etc/bind/
 service bind9 restart
