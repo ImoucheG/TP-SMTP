@@ -3,12 +3,12 @@
 ;
 $TTL	604800
 @	IN	SOA	hostone.gira.labos-nantes.ovh. root.gira.labos-nantes.ovh. (
-			      2		; Serial
+			      1		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
 			 604800 )	; Negative Cache TTL
 ;
-@	IN	NS	gira.labos-nantes.ovh.
+@	IN	NS	hostone.gira.labos-nantes.ovh.
 ns	IN	A	172.16.4.1
 @	IN	AAAA	::1

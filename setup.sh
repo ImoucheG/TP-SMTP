@@ -2,8 +2,8 @@
 # Update System
 cp -R ./config/ /tmp/
 cd /tmp/
-
-apt-get update -y && apt-get upgrade -y
+#
+#apt-get update -y && apt-get upgrade -y
 apt-get install -y sudo
 
 # Add user EPSI
@@ -31,8 +31,11 @@ service hostname start
 cat ./config/misc/hosts >> /etc/hosts
 cat ./config/misc/hosts.conf >> /etc/hosts.conf
 cat ./config/misc/resolv.conf >> /etc/resolv.conf
+ifdown eth0 eth1
+ifup eth0 eth1
 apt-get install -y bind9 dnsutils
 cp -R ./config/bind9/* /etc/bind/
+/etc/init.d/named restart
 service bind9 restart
 
 # Install PostfixAdmin
@@ -47,8 +50,8 @@ wget http://sourceforge.net/projects/postfixadmin/files/postfixadmin/postfixadmi
 tar -xzf postfixadmin-2.93.tar.gz
 mv postfixadmin-2.93 postfixadmin
 rm -rf postfixadmin-2.93.tar.gz
-chown -R root:root postfixadmin
-
+chown -R root:www-data postfixadmin
+chmod -R 775 postfixadmin
 cd /tmp/
 # Configuration PostfixAdmin #
 service apache2 restart
@@ -64,28 +67,16 @@ service apache2 restart
 
 cp ./config/postfixadmin/config.inc.php /var/www/postfixadmin/
 mysql -u root -pmysql postfix < ./config/postfixadmin/postfix.sql
-cp /etc/postfix/main.cf /etc/postfix/main.cf_bak
+ccp /etc/postfix/main.cf /etc/postfix/main.cf_bak
 cp -R ./config/postfix/* /etc/postfix/
 # Generation SSL #
-# cd /etc/ssl
-#openssl genrsa -out ca.key.pem 4096
-#openssl req -x509 -new -nodes -days 1460 -sha256 -key ca.key.pem -out ca.cert.pem
-#openssl genrsa -out mailserver.key 4096
-#openssl req -new -sha256 -key mailserver.key -out mailserver.csr
-#openssl x509 -req -days 1460 -sha256 -in mailserver.csr -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -out mailserver.crt
-#chmod 444 ca.cert.pem
-#chmod 444 mailserver.crt
-#chmod 400 ca.key.pem
-#chmod 400 mailserver.key
-#mv ca.key.pem private/
-#mv ca.cert.pem certs/
-#mv mailserver.key private/
-#mv mailserver.crt certs/
-#openssl dhparam -out /etc/postfix/dh2048.pem 2048
-#openssl dhparam -out /etc/postfix/dh512.pem 512
+cd /tmp/config/ssl/
+mv hostone.gira.labos-nantes.ovh.key /etc/ssl/private/
+mv hostone.gira.labos-nantes.ovh.crt /etc/ssl/certs/
+mv cakey.pem /etc/ssl/private/
+mv cacert.pem /etc/ssl/certs/
 # A mettre au propre avec une bonne config
 #Installation DOVECOT
-
 cd /tmp/
 apt-get install -y dovecot-core dovecot-imapd dovecot-lmtpd dovecot-mysql
 mkdir -p /var/mail/vhosts/labos-nantes.ovh
