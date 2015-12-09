@@ -26,7 +26,8 @@ service apache2 restart
 
 # Install Domain
 apt-get install resolvconf -y
-cp ./config/misc/resolv.conf /etc/resolvconf/resolv.conf.d/base
+cp ./config/misc/base /etc/resolvconf/resolv.conf.d/base
+resolvconf -u
 
 cp ./config/misc/hostname /etc/hostname
 /etc/init.d/hostname.sh start
