@@ -25,19 +25,33 @@ apt-get install -y php5 libapache2-mod-php5 php5-fpm php5-mysql php5-imap
 service apache2 restart
 
 # Install Domain
-cat ./config/misc/hostname > /etc/hostname
-service hostname start
+apt-get install resolvconf -y
+cp ./config/misc/base /etc/resolvconf/resolv.conf.d/base
+resolvconf -u
 
+cp ./config/misc/hostname /etc/hostname
+/etc/init.d/hostname.sh start
+
+cp ./config/misc/hosts /etc/hosts
+cp ./config/misc/hosts.conf /etc/hosts.conf
+
+<<<<<<< HEAD
 cat ./config/misc/hosts >> /etc/hosts
 cat ./config/misc/hosts.conf >> /etc/hosts.conf
 cat ./config/misc/resolv.conf >> /etc/resolv.conf
 cp ./config/misc/interfaces /etc/network/interfaces
 ifdown eth0 eth1
 ifup eth0 eth1
+=======
+>>>>>>> dev_arthur
 apt-get install -y bind9 dnsutils
 cp -R ./config/bind9/* /etc/bind/
 /etc/init.d/named restart
 service bind9 restart
+
+cp ./config/misc/interfaces /etc/network/interfaces
+ifdown eth0 eth1
+ifup eth0 eth1
 
 # Install PostfixAdmin
 #login : admin@labos-nantes.ovh
