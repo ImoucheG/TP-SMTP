@@ -11,9 +11,4 @@ iface eth0 inet dhcp
 
 # The secondary network interface
 auto eth1
-iface eth1 inet static
-address 172.16.4.1
-netmask 255.255.255.0
-gateway 172.16.4.254
-network 172.16.4.0
-broadcast 172.16.4.255
+iface eth1 inet dhcp

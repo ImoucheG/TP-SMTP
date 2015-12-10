@@ -10,4 +10,4 @@ $TTL	604800
 			 604800 )	; Negative Cache TTL
 
 @		IN	NS		ns.gira.labos-nantes.ovh.
-1		IN	PTR		ns.gira.labos-nantes.ovh.
+10		IN	PTR		ns.gira.labos-nantes.ovh.
