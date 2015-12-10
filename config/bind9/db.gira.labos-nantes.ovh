@@ -1,4 +1,3 @@
-;
 ; BIND data file for local loopback interface
 ;
 $TTL	604800
@@ -10,5 +9,6 @@ $TTL	604800
 			 604800 )	; Negative Cache TTL
 ;
 @	IN	NS	hostone.gira.labos-nantes.ovh.
-ns	IN	A	172.16.4.1
+hostone	IN	A	172.16.4.1
 @	IN	AAAA	::1
+@	IN	A	172.16.4.1

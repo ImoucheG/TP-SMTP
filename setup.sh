@@ -31,6 +31,7 @@ service hostname start
 cat ./config/misc/hosts >> /etc/hosts
 cat ./config/misc/hosts.conf >> /etc/hosts.conf
 cat ./config/misc/resolv.conf >> /etc/resolv.conf
+cp ./config/misc/interfaces /etc/network/interfaces
 ifdown eth0 eth1
 ifup eth0 eth1
 apt-get install -y bind9 dnsutils
@@ -67,7 +68,7 @@ service apache2 restart
 
 cp ./config/postfixadmin/config.inc.php /var/www/postfixadmin/
 mysql -u root -pmysql postfix < ./config/postfixadmin/postfix.sql
-ccp /etc/postfix/main.cf /etc/postfix/main.cf_bak
+cp /etc/postfix/main.cf /etc/postfix/main.cf_bak
 cp -R ./config/postfix/* /etc/postfix/
 # Generation SSL #
 cd /tmp/config/ssl/
@@ -86,5 +87,7 @@ chown -R vmail:vmail /var/mail/
 cp -R ./config/dovecot/* /etc/dovecot/
 chown -R vmail:dovecot /etc/dovecot/
 chmod -R o-rwx /etc/dovecot/
+cat ./config/misc/resolv.conf >> /etc/resolv.conf
+service bind9 restart
 service postfix restart
 service dovecot restart
