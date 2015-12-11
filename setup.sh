@@ -23,7 +23,7 @@ cp ./config/misc/hosts /etc/hosts
 cp ./config/misc/hosts.conf /etc/hosts.conf
 
 apt-get install -y bind9 dnsutils
-cp -R ./config/bind9/* /etc/bind/
+cp -r ./config/bind9/* /etc/bind/
 /etc/init.d/named restart
 service bind9 restart
 
@@ -63,30 +63,27 @@ mysql -u root -pmysql < ./config/postfix/setup.sql
 #	- a.rousseau@gira.labos-nantes.ovh::arousseau2015
 cp ./config/postfixadmin/config.inc.php /var/www/postfixadmin/
 cp /etc/postfix/main.cf /etc/postfix/main.cf_bak
-cp -R ./config/postfix/* /etc/postfix/
+cp -r ./config/postfix/* /etc/postfix/
 mysql -u root -pmysql postfix < ./config/postfixadmin/postfix.sql
 
 # Generation SSL #
-cd /tmp/config/ssl/
-mv hostone.gira.labos-nantes.ovh.key /etc/ssl/private/
-mv hostone.gira.labos-nantes.ovh.crt /etc/ssl/certs/
-mv cakey.pem /etc/ssl/private/
-mv cacert.pem /etc/ssl/certs/
-
+cd /tmp/
+cp -r ./config/ssl/* /etc/ssl/
 service apache2 restart
 
 # A mettre au propre avec une bonne config
 #Installation DOVECOT
 cd /tmp/
 apt-get install -y dovecot-core dovecot-imapd dovecot-lmtpd dovecot-mysql
-mkdir -p /var/mail/vhosts/labos-nantes.ovh
+mkdir -p /var/mail/vhosts/gira.labos-nantes.ovh
 groupadd -g 5000 vmail
 useradd -g vmail -u 5000 vmail -d /var/mail/
 chown -R vmail:vmail /var/mail/
-cp -R ./config/dovecot/* /etc/dovecot/
+cp -r ./config/dovecot/* /etc/dovecot/
 chown -R vmail:dovecot /etc/dovecot/
 chmod -R o-rwx /etc/dovecot/
-cat ./config/misc/resolv.conf >> /etc/resolv.conf
 service bind9 restart
 service postfix restart
 service dovecot restart
+service postfix reload
+service dovecot reload

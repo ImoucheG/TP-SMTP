@@ -1,62 +1,83 @@
-# See /usr/share/postfix/main.cf.dist for a commented, more complete version
+#######################
+## GENERALS SETTINGS ##
+#######################
 
+smtpd_banner         = $myhostname ESMTP $mail_name (Debian/GNU)
+biff                 = no
+append_dot_mydomain  = no
+readme_directory     = no
+delay_warning_time   = 4h
+mailbox_command      = procmail -a "$EXTENSION"
+recipient_delimiter  = +
+disable_vrfy_command = yes
+message_size_limit   = 502400000
+mailbox_size_limit   = 1024000000
 
-# Debian specific:  Specifying a file name will cause the first
-# line of that file to be used as the name.  The Debian default
-# is /etc/mailname.
-#myorigin = /etc/mailname
+inet_interfaces = all
+inet_protocols = ipv4
 
-smtpd_banner = $myhostname ESMTP $mail_name (Debian/GNU)
-biff = no
+myhostname    = hostone.gira.labos-nantes.ovh
+myorigin      = hostone.gira.labos-nantes.ovh
+mydestination = localhost localhost.$mydomain
+mynetworks    = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
+relayhost     =
 
-# appending .domain is the MUA's job.
-append_dot_mydomain = no
-
-# Uncomment the next line to generate "delayed mail" warnings
-#delay_warning_time = 4h
-
-readme_directory = no
-
-# TLS parameters
-smtpd_tls_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem
-smtpd_tls_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
-smtpd_use_tls=yes
-smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
-smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
-
-
-# TLS parameters
-#smtpd_tls_cert_file=/etc/ssl/certs/hostone.gira.labos-nantes.ovh.crt
-#smtpd_tls_key_file=/etc/ssl/private/hostone.gira.labos-nantes.ovh.key
-#smtpd_tls_CAfile = /etc/ssl/certs/cacert.pem
-
-#smtpd_use_tls=yes
-#smtpd_tls_auth_only =no
-#smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
-#smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache
-
-
-# See /usr/share/doc/postfix/TLS_README.gz in the postfix-doc package for
-# information on enabling SSL in the smtp client.
-
-smtpd_relay_restrictions = permit_mynetworks permit_sasl_authenticated defer_unauth_destination
-myhostname = hostone.gira-labos-nantes.ovh
-alias_maps = hash:/etc/aliases
+alias_maps     = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-myorigin = /etc/mailname
-mydestination = labos-nantes.ovh, hostone.gira-labos-nantes.ovh, localhost.gira-labos-nantes.ovh, localhost
-relayhost = 
-mynetworks = 127.0.0.0/8 [::ffff:127.0.0.0]/104 [::1]/128
-mailbox_command = procmail -a "$EXTENSION"
-mailbox_size_limit = 0
-recipient_delimiter = +
-inet_interfaces = loopback-only
-default_transport = error
-relay_transport = error
 
-# Paramètres de connexion SASL
-# C'est ici que l'on déclare Dovecot comme une passerelle pour authentifier les utilisateurs.
-# Postfix peut s'appuyer sur Dovecot pour identifier les connexions SMTP.
+####################
+## TLS PARAMETERS ##
+####################
+# Smtp ( OUTGOING / Client )
+smtp_tls_loglevel            = 1
+smtp_tls_security_level      = may
+smtp_tls_CAfile              = /etc/ssl/certs/ca.cert.pem
+smtp_tls_protocols           = !SSLv2, !SSLv3
+smtp_tls_mandatory_protocols = !SSLv2, !SSLv3
+smtp_tls_mandatory_ciphers   = high
+smtp_tls_exclude_ciphers     = aNULL, eNULL, EXPORT, DES, 3DES, RC2, RC4, MD5, PSK, SRP, DSS, AECDH, ADH
+smtp_tls_note_starttls_offer = yes
+
+# ---------------------------------------------------------------------------------------------------
+
+# Smtpd ( INCOMING / Server )
+smtpd_tls_loglevel            = 1
+smtpd_tls_auth_only           = yes
+smtpd_tls_security_level      = may
+smtpd_tls_received_header     = yes
+smtpd_tls_protocols           = !SSLv2, !SSLv3
+smtpd_tls_mandatory_protocols = !SSLv2, !SSLv3
+smtpd_tls_mandatory_ciphers   = medium
+
+# Infos (voir : postconf -d)
+# Medium cipherlist = aNULL:-aNULL:ALL:!EXPORT:!LOW:+RC4:@STRENGTH
+# High cipherlist   = aNULL:-aNULL:ALL:!EXPORT:!LOW:!MEDIUM:+RC4:@STRENGTH
+
+# smtpd_tls_exclude_ciphers   = NE PAS modifier cette directive pour des raisons de compatibilité
+#                               avec les autres serveurs de mail afin d'éviter une erreur du type
+#                               "no shared cipher" ou "no cipher overlap" puis un fallback en
+#                               plain/text...
+# smtpd_tls_cipherlist        = Ne pas modifier non plus !
+
+smtpd_tls_CAfile              = $smtp_tls_CAfile
+smtpd_tls_cert_file           = /etc/ssl/certs/mailserver.crt
+smtpd_tls_key_file            = /etc/ssl/private/mailserver.key
+smtpd_tls_dh1024_param_file   = $config_directory/dh2048.pem
+smtpd_tls_dh512_param_file    = $config_directory/dh512.pem
+
+tls_preempt_cipherlist = yes
+tls_random_source      = dev:/dev/urandom
+
+smtp_tls_session_cache_database  = btree:${data_directory}/smtp_scache
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache
+lmtp_tls_session_cache_database  = btree:${data_directory}/lmtp_scache
+
+# ----------------------------------------------------------------------
+
+#####################
+## SASL PARAMETERS ##
+#####################
+
 smtpd_sasl_auth_enable          = yes
 smtpd_sasl_type                 = dovecot
 smtpd_sasl_path                 = private/auth
@@ -67,23 +88,57 @@ smtpd_sasl_authenticated_header = yes
 
 broken_sasl_auth_clients = yes
 
-# Stockage mail
+##############################
+## VIRTUALS MAPS PARAMETERS ##
+##############################
 
 virtual_uid_maps        = static:5000
 virtual_gid_maps        = static:5000
 virtual_minimum_uid     = 5000
 virtual_mailbox_base    = /var/mail
-
+virtual_transport       = lmtp:unix:private/dovecot-lmtp
 virtual_mailbox_domains = mysql:/etc/postfix/mysql-virtual-mailbox-domains.cf
 virtual_mailbox_maps    = mysql:/etc/postfix/mysql-virtual-mailbox-maps.cf
 virtual_alias_maps      = mysql:/etc/postfix/mysql-virtual-alias-maps.cf
-# Comment transferer
-virtual_transport = lmtp:unix:private/dovecot-lmtp
-submission inet n       -       -       -       -       smtpd
-  -o syslog_name=postfix/submission
-  -o smtpd_tls_dh1024_param_file=${config_directory}/dh2048.pem
-  -o smtpd_tls_security_level=encrypt
-  -o smtpd_sasl_auth_enable=yes
-  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-smtp  inet  n       -       -       -       -       smtpd
 
+######################
+## ERRORS REPORTING ##
+######################
+
+# notify_classes = bounce, delay, resource, software
+notify_classes = resource, software
+
+error_notice_recipient     = admin@domain.tld
+# delay_notice_recipient   = admin@domain.tld
+# bounce_notice_recipient  = admin@domain.tld
+# 2bounce_notice_recipient = admin@domain.tld
+
+##################
+## RESTRICTIONS ##
+##################
+
+smtpd_recipient_restrictions =
+     permit_mynetworks,
+     permit_sasl_authenticated,
+     reject_non_fqdn_recipient,
+     reject_unauth_destination,
+     reject_unknown_recipient_domain,
+     reject_rbl_client zen.spamhaus.org
+
+smtpd_helo_restrictions =
+     permit_mynetworks,
+     permit_sasl_authenticated,
+     reject_invalid_helo_hostname,
+     reject_non_fqdn_helo_hostname
+     # reject_unknown_helo_hostname
+
+smtpd_client_restrictions =
+     permit_mynetworks,
+     permit_inet_interfaces,
+     permit_sasl_authenticated
+     # reject_plaintext_session,
+     # reject_unauth_pipelining
+
+smtpd_sender_restrictions =
+     reject_non_fqdn_sender,
+     reject_unknown_sender_domain

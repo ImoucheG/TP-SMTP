@@ -11,7 +11,7 @@ $TTL	604800
 
 @		IN	NS		hostone.
 @		IN	MX 10 	mail.gira.labos-nantes.ovh.
-
+@		IN 	A		172.16.4.1
 hostone	IN	A		172.16.4.1
 mail	IN	A		172.16.4.1
 pop		IN	CNAME	mail
