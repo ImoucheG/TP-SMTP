@@ -86,7 +86,7 @@ chmod -R o-rwx /etc/dovecot/
 # Spamassassin installation
 apt-get install -y spamc spamassassin --fix-missing
 groupadd spamassassin
-useradd spamassassin -s /sbin/nologin -d /usr/local/spamassassin spamassassin
+useradd -s /sbin/nologin -d /usr/local/spamassassin spamassassin
 mkdir -p /usr/local/spamassassin/log
 chown spamassassin:spamassassin -R /usr/local/spamassassin
 
