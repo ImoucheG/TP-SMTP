@@ -88,9 +88,9 @@ apt-get install -y spamc spamassassin --fix-missing
 groupadd spamassassin
 useradd spamassassin -s /sbin/nologin -d /usr/local/spamassassin spamassassin
 mkdir -p /usr/local/spamassassin/log
-chown spam:spam -R /usr/local/spamassassin
+chown spamassassin:spamassassin -R /usr/local/spamassassin
 
-cp ./config/spamassassin /etc/default/spamassassin
+cp ./config/spamassassin/spamassassin /etc/default/spamassassin
 cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
 
 service bind9 restart
