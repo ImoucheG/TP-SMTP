@@ -9,6 +9,7 @@
 #               (yes)   (yes)   (yes)   (never) (100)
 # ==========================================================================
 smtp      inet  n       -       -       -       -       smtpd
+  -o content_filter=spamassassin
 #smtp      inet  n       -       -       -       1       postscreen
 #smtpd     pass  -       -       -       -       -       smtpd
 #dnsblog   unix  -       -       -       -       0       dnsblog
@@ -19,6 +20,8 @@ submission inet n       -       -       -       -       smtpd
   -o smtpd_tls_security_level=encrypt
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+  -o content_filter=spamassassin
+
 #  -o milter_macro_daemon_name=ORIGINATING
 #smtps     inet  n       -       -       -       -       smtpd
 #  -o syslog_name=postfix/smtps
@@ -106,8 +109,10 @@ ifmail    unix  -       n       n       -       -       pipe
   flags=F user=ftn argv=/usr/lib/ifmail/ifmail -r $nexthop ($recipient)
 bsmtp     unix  -       n       n       -       -       pipe
   flags=Fq. user=bsmtp argv=/usr/lib/bsmtp/bsmtp -t$nexthop -f$sender $recipient
-scalemail-backend unix	-	n	n	-	2	pipe
+scalemail-backend	unix	-	n	n	-	2	pipe
   flags=R user=scalemail argv=/usr/lib/scalemail/bin/scalemail-store ${nexthop} ${user} ${extension}
 mailman   unix  -       n       n       -       -       pipe
   flags=FR user=list argv=/usr/lib/mailman/bin/postfix-to-mailman.py
   ${nexthop} ${user}
+spamassassin	unix	-	n	n	-	-	pipe
+  flags=FR user=spamassassin -f -e /usr/sbin/ -oi -f ${sender} ${recipient}
