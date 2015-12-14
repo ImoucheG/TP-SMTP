@@ -107,7 +107,6 @@ cp ./config/spamassassin/spamassassin /etc/default/spamassassin
 cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
 
 service bind9 restart
+service spamassassin restart
 service postfix restart
 service dovecot restart
-service postfix reload
-service dovecot reload
