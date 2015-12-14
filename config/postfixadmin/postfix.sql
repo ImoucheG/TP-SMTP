@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: postfix
 -- ------------------------------------------------------
@@ -34,16 +34,6 @@ CREATE TABLE `admin` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `admin`
---
-
-LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES ('admin@gira.labos-nantes.ovh','$1$9ec5c07d$cdRNcyq9PFQglUwa6VimG.',1,'2015-12-09 14:03:01','2015-12-09 14:03:01',1);
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `alias`
 --
 
@@ -61,16 +51,6 @@ CREATE TABLE `alias` (
   KEY `domain` (`domain`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Postfix Admin - Virtual Aliases';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `alias`
---
-
-LOCK TABLES `alias` WRITE;
-/*!40000 ALTER TABLE `alias` DISABLE KEYS */;
-INSERT INTO `alias` VALUES ('abuse@gira.labos-nantes.ovh','abuse@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-09 14:04:04',1),('hostmaster@gira.labos-nantes.ovh','hostmaster@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-09 14:04:04',1),('postmaster@gira.labos-nantes.ovh','postmaster@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-09 14:04:04',1),('webmaster@gira.labos-nantes.ovh','webmaster@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-09 14:04:04',1),('a.rousseau@gira.labos-nantes.ovh','a.rousseau@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:47','2015-12-09 14:04:47',1),('g.imouche@gira.labos-nantes.ovh','g.imouche@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:05:12','2015-12-09 14:05:12',1);
-/*!40000 ALTER TABLE `alias` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `alias_domain`
@@ -92,15 +72,6 @@ CREATE TABLE `alias_domain` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `alias_domain`
---
-
-LOCK TABLES `alias_domain` WRITE;
-/*!40000 ALTER TABLE `alias_domain` DISABLE KEYS */;
-/*!40000 ALTER TABLE `alias_domain` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `config`
 --
 
@@ -115,16 +86,6 @@ CREATE TABLE `config` (
   UNIQUE KEY `name` (`name`)
 ) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 COMMENT='PostfixAdmin settings';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `config`
---
-
-LOCK TABLES `config` WRITE;
-/*!40000 ALTER TABLE `config` DISABLE KEYS */;
-INSERT INTO `config` VALUES (1,'version','1795');
-/*!40000 ALTER TABLE `config` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `domain`
@@ -150,16 +111,6 @@ CREATE TABLE `domain` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `domain`
---
-
-LOCK TABLES `domain` WRITE;
-/*!40000 ALTER TABLE `domain` DISABLE KEYS */;
-INSERT INTO `domain` VALUES ('ALL','',0,0,0,0,'',0,'2015-12-09 14:02:57','2015-12-09 14:02:57',1),('gira.labos-nantes.ovh','',10,10,10,2048,'virtual',0,'2015-12-09 14:04:04','2015-12-09 14:04:04',1);
-/*!40000 ALTER TABLE `domain` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `domain_admins`
 --
 
@@ -174,16 +125,6 @@ CREATE TABLE `domain_admins` (
   KEY `username` (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Postfix Admin - Domain Admins';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `domain_admins`
---
-
-LOCK TABLES `domain_admins` WRITE;
-/*!40000 ALTER TABLE `domain_admins` DISABLE KEYS */;
-INSERT INTO `domain_admins` VALUES ('admin@gira.labos-nantes.ovh','ALL','2015-12-09 14:03:01',1);
-/*!40000 ALTER TABLE `domain_admins` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `fetchmail`
@@ -221,15 +162,6 @@ CREATE TABLE `fetchmail` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `fetchmail`
---
-
-LOCK TABLES `fetchmail` WRITE;
-/*!40000 ALTER TABLE `fetchmail` DISABLE KEYS */;
-/*!40000 ALTER TABLE `fetchmail` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `log`
 --
 
@@ -246,16 +178,6 @@ CREATE TABLE `log` (
   KEY `domain_timestamp` (`domain`,`timestamp`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Postfix Admin - Log';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `log`
---
-
-LOCK TABLES `log` WRITE;
-/*!40000 ALTER TABLE `log` DISABLE KEYS */;
-INSERT INTO `log` VALUES ('2015-12-09 14:03:01','SETUP.PHP (172.16.4.50)','','create_admin','admin@gira.labos-nantes.ovh'),('2015-12-09 14:04:04','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_domain','gira.labos-nantes.ovh'),('2015-12-09 14:04:47','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_alias','a.rousseau@gira.labos-nantes.ovh'),('2015-12-09 14:04:47','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_mailbox','a.rousseau@gira.labos-nantes.ovh'),('2015-12-09 14:05:12','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_alias','g.imouche@gira.labos-nantes.ovh'),('2015-12-09 14:05:12','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_mailbox','g.imouche@gira.labos-nantes.ovh');
-/*!40000 ALTER TABLE `log` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `mailbox`
@@ -281,16 +203,6 @@ CREATE TABLE `mailbox` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `mailbox`
---
-
-LOCK TABLES `mailbox` WRITE;
-/*!40000 ALTER TABLE `mailbox` DISABLE KEYS */;
-INSERT INTO `mailbox` VALUES ('a.rousseau@gira.labos-nantes.ovh','$1$f8b89e1b$Pi.9rZjX3ItmeIHEh8LWB/','Arthur Rousseau','gira.labos-nantes.ovh/a.rousseau/',0,'a.rousseau','gira.labos-nantes.ovh','2015-12-09 14:04:47','2015-12-09 14:04:47',1),('g.imouche@gira.labos-nantes.ovh','$1$50d4b40d$KtIAfegzBdvpQ/P9COeSg/','Guillaume Imouche','gira.labos-nantes.ovh/g.imouche/',0,'g.imouche','gira.labos-nantes.ovh','2015-12-09 14:05:12','2015-12-09 14:05:12',1);
-/*!40000 ALTER TABLE `mailbox` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `quota`
 --
 
@@ -306,15 +218,6 @@ CREATE TABLE `quota` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `quota`
---
-
-LOCK TABLES `quota` WRITE;
-/*!40000 ALTER TABLE `quota` DISABLE KEYS */;
-/*!40000 ALTER TABLE `quota` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `quota2`
 --
 
@@ -328,15 +231,6 @@ CREATE TABLE `quota2` (
   PRIMARY KEY (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `quota2`
---
-
-LOCK TABLES `quota2` WRITE;
-/*!40000 ALTER TABLE `quota2` DISABLE KEYS */;
-/*!40000 ALTER TABLE `quota2` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `vacation`
@@ -363,15 +257,6 @@ CREATE TABLE `vacation` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `vacation`
---
-
-LOCK TABLES `vacation` WRITE;
-/*!40000 ALTER TABLE `vacation` DISABLE KEYS */;
-/*!40000 ALTER TABLE `vacation` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `vacation_notification`
 --
 
@@ -386,15 +271,6 @@ CREATE TABLE `vacation_notification` (
   CONSTRAINT `vacation_notification_pkey` FOREIGN KEY (`on_vacation`) REFERENCES `vacation` (`email`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Postfix Admin - Virtual Vacation Notifications';
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `vacation_notification`
---
-
-LOCK TABLES `vacation_notification` WRITE;
-/*!40000 ALTER TABLE `vacation_notification` DISABLE KEYS */;
-/*!40000 ALTER TABLE `vacation_notification` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -405,4 +281,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-09 14:06:17
+-- Dump completed on 2015-12-14  7:57:48

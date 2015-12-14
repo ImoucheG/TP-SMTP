@@ -11,6 +11,6 @@ $spam_quarantine_method	= undef;
 $sa_tag_level_deflt = -1999;
 $sa_tag2_level_deflt = 5;
 $sa_kill_level_deflt = 1999;
-$sa_spam_subject_tag = '**Spam**';
+$sa_spam_subject_tag = '[Spam] ';
 #------------ Do not modify anything below this line -------------
 1;  # ensure a defined return
