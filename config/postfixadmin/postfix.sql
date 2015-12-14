@@ -1,4 +1,4 @@
--- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (i686)
+-- MySQL dump 10.13  Distrib 5.5.46, for debian-linux-gnu (x86_64)
 --
 -- Host: localhost    Database: postfix
 -- ------------------------------------------------------
@@ -14,6 +14,14 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Current Database: `postfix`
+--
+
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ `postfix` /*!40100 DEFAULT CHARACTER SET latin1 */;
+
+USE `postfix`;
 
 --
 -- Table structure for table `admin`
@@ -68,7 +76,7 @@ CREATE TABLE `alias` (
 
 LOCK TABLES `alias` WRITE;
 /*!40000 ALTER TABLE `alias` DISABLE KEYS */;
-INSERT INTO `alias` VALUES ('abuse@gira.labos-nantes.ovh','abuse@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-09 14:04:04',1),('hostmaster@gira.labos-nantes.ovh','hostmaster@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-09 14:04:04',1),('postmaster@gira.labos-nantes.ovh','postmaster@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-09 14:04:04',1),('webmaster@gira.labos-nantes.ovh','webmaster@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-09 14:04:04',1),('a.rousseau@gira.labos-nantes.ovh','a.rousseau@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:47','2015-12-09 14:04:47',1),('g.imouche@gira.labos-nantes.ovh','g.imouche@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:05:12','2015-12-09 14:05:12',1);
+INSERT INTO `alias` VALUES ('abuse@gira.labos-nantes.ovh','admin@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-14 07:36:01',1),('hostmaster@gira.labos-nantes.ovh','admin@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-14 07:36:08',1),('postmaster@gira.labos-nantes.ovh','admin@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-14 07:36:14',1),('webmaster@gira.labos-nantes.ovh','admin@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:04','2015-12-14 07:36:22',1),('a.rousseau@gira.labos-nantes.ovh','a.rousseau@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:04:47','2015-12-09 14:04:47',1),('g.imouche@gira.labos-nantes.ovh','g.imouche@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-09 14:05:12','2015-12-09 14:05:12',1),('admin@gira.labos-nantes.ovh','admin@gira.labos-nantes.ovh','gira.labos-nantes.ovh','2015-12-14 07:35:47','2015-12-14 07:35:47',1);
 /*!40000 ALTER TABLE `alias` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +261,7 @@ CREATE TABLE `log` (
 
 LOCK TABLES `log` WRITE;
 /*!40000 ALTER TABLE `log` DISABLE KEYS */;
-INSERT INTO `log` VALUES ('2015-12-09 14:03:01','SETUP.PHP (172.16.4.50)','','create_admin','admin@gira.labos-nantes.ovh'),('2015-12-09 14:04:04','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_domain','gira.labos-nantes.ovh'),('2015-12-09 14:04:47','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_alias','a.rousseau@gira.labos-nantes.ovh'),('2015-12-09 14:04:47','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_mailbox','a.rousseau@gira.labos-nantes.ovh'),('2015-12-09 14:05:12','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_alias','g.imouche@gira.labos-nantes.ovh'),('2015-12-09 14:05:12','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_mailbox','g.imouche@gira.labos-nantes.ovh');
+INSERT INTO `log` VALUES ('2015-12-09 14:03:01','SETUP.PHP (172.16.4.50)','','create_admin','admin@gira.labos-nantes.ovh'),('2015-12-09 14:04:04','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_domain','gira.labos-nantes.ovh'),('2015-12-09 14:04:47','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_alias','a.rousseau@gira.labos-nantes.ovh'),('2015-12-09 14:04:47','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_mailbox','a.rousseau@gira.labos-nantes.ovh'),('2015-12-09 14:05:12','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_alias','g.imouche@gira.labos-nantes.ovh'),('2015-12-09 14:05:12','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_mailbox','g.imouche@gira.labos-nantes.ovh'),('2015-12-14 07:35:47','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_alias','admin@gira.labos-nantes.ovh'),('2015-12-14 07:35:47','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','create_mailbox','admin@gira.labos-nantes.ovh'),('2015-12-14 07:36:01','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','edit_alias','abuse@gira.labos-nantes.ovh'),('2015-12-14 07:36:08','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','edit_alias','hostmaster@gira.labos-nantes.ovh'),('2015-12-14 07:36:14','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','edit_alias','postmaster@gira.labos-nantes.ovh'),('2015-12-14 07:36:22','admin@gira.labos-nantes.ovh (172.16.4.50)','gira.labos-nantes.ovh','edit_alias','webmaster@gira.labos-nantes.ovh');
 /*!40000 ALTER TABLE `log` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,7 +294,7 @@ CREATE TABLE `mailbox` (
 
 LOCK TABLES `mailbox` WRITE;
 /*!40000 ALTER TABLE `mailbox` DISABLE KEYS */;
-INSERT INTO `mailbox` VALUES ('a.rousseau@gira.labos-nantes.ovh','$1$f8b89e1b$Pi.9rZjX3ItmeIHEh8LWB/','Arthur Rousseau','gira.labos-nantes.ovh/a.rousseau/',0,'a.rousseau','gira.labos-nantes.ovh','2015-12-09 14:04:47','2015-12-09 14:04:47',1),('g.imouche@gira.labos-nantes.ovh','$1$50d4b40d$KtIAfegzBdvpQ/P9COeSg/','Guillaume Imouche','gira.labos-nantes.ovh/g.imouche/',0,'g.imouche','gira.labos-nantes.ovh','2015-12-09 14:05:12','2015-12-09 14:05:12',1);
+INSERT INTO `mailbox` VALUES ('a.rousseau@gira.labos-nantes.ovh','$1$f8b89e1b$Pi.9rZjX3ItmeIHEh8LWB/','Arthur Rousseau','gira.labos-nantes.ovh/a.rousseau/',0,'a.rousseau','gira.labos-nantes.ovh','2015-12-09 14:04:47','2015-12-09 14:04:47',1),('g.imouche@gira.labos-nantes.ovh','$1$50d4b40d$KtIAfegzBdvpQ/P9COeSg/','Guillaume Imouche','gira.labos-nantes.ovh/g.imouche/',0,'g.imouche','gira.labos-nantes.ovh','2015-12-09 14:05:12','2015-12-09 14:05:12',1),('admin@gira.labos-nantes.ovh','$1$f552573f$C2y3ArY.37hnd/vlltBg50','Administrator','gira.labos-nantes.ovh/admin/',0,'admin','gira.labos-nantes.ovh','2015-12-14 07:35:47','2015-12-14 07:35:47',1);
 /*!40000 ALTER TABLE `mailbox` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,4 +413,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-09 14:06:17
+-- Dump completed on 2015-12-14  7:43:18
