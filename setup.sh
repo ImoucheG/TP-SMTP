@@ -114,8 +114,6 @@ service bind9 reload
 service spamassassin reload
 service postfix reload
 service dovecot reload
-service amavis reload
-service clamav-daemon reload
 #Restart daemon
 service apache2 restart
 service bind9 restart
