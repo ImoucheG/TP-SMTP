@@ -105,7 +105,9 @@ cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
 # Installation of Amavis and ClamAv
 cd /tmp/
 apt-get install -y amavisd-milter clamav-milter gzip bzip2 unzip cpio rpm nomarch cabextract arj arc zoo lzop pax
-addgroup clamav amavis
+adduser clamav amavis
+adduser amavis clamav
+chmod -R 775 /var/lib/amavis/
 cp -r ./config/amavis/* /etc/amavis
 
 #Reload configuration
