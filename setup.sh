@@ -45,7 +45,7 @@ apt-get install -y php5 libapache2-mod-php5 php5-fpm php5-mysql php5-imap
 # Password : admin2015
 # Domain : server.gira.labos-nantes.ovh (should be : gira.labos-nantes.ovh ?)
 apt-get install -y postfix postfix-mysql
-wget http://sourceforge.net/projects/postfixadmin/files/postfixadmin/postfixadmin-2.93/postfixadmin-2.93.tar.gz
+wget http://imoucheg.com/postfixadmin-2.93.tar.gz
 tar -xzf postfixadmin-2.93.tar.gz
 mv postfixadmin-2.93 /var/www/postfixadmin
 chown -R root:www-data /var/www/postfixadmin
@@ -101,15 +101,26 @@ chown spamassassin:spamassassin -R /usr/local/spamassassin
 cp ./config/spamassassin/spamassassin /etc/default/spamassassin
 cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
 
+
+# Installation of Amavis and ClamAv
+cd /tmp/
+apt-get install -y amavisd-new clamav clamav-daemon gzip bzip2 unzip cpio rpm nomarch cabextract arj arc zoo lzop pax
+addgroup clamav amavis
+cp -r ./config/amavis/* /etc/amavis
+
 #Reload configuration
 service apache2 reload
 service bind9 reload
 service spamassassin reload
 service postfix reload
 service dovecot reload
+service amavis reload
+service clamav-daemon reload
 #Restart daemon
 service apache2 restart
 service bind9 restart
+service amavis restart
+service clamav-daemon restart
 service spamassassin restart
 service postfix restart
 service dovecot restart
