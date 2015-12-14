@@ -107,6 +107,7 @@ cd /tmp/
 apt-get install -y amavisd-milter clamav-milter gzip bzip2 unzip cpio rpm nomarch cabextract arj arc zoo lzop pax
 adduser clamav amavis
 adduser amavis clamav
+cp -r ./config/clamav/* /etc/clamav/
 cp -r ./config/amavis/* /etc/amavis
 /etc/init.d/amavis force-reload
 /etc/init.d/amavis restart
