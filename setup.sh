@@ -6,11 +6,6 @@ cd /tmp/
 #apt-get update -y && apt-get upgrade -y
 apt-get install -y sudo
 
-# Add user EPSI
-useradd epsi
-adduser epsi root
-adduser epsi sudo
-
 # BIND Installation
 apt-get install resolvconf -y
 cp ./config/misc/base /etc/resolvconf/resolv.conf.d/base
@@ -48,7 +43,7 @@ apt-get install -y php5 libapache2-mod-php5 php5-fpm php5-mysql php5-imap
 # Postfix Installation ('Local Only')
 # Login : admin@labos-nantes.ovh (should be : admin@gira.labos-nantes.ovh ?)
 # Password : admin2015
-# Domain : hostone.gira.labos-nantes.ovh (should be : gira.labos-nantes.ovh ?)
+# Domain : server.gira.labos-nantes.ovh (should be : gira.labos-nantes.ovh ?)
 apt-get install -y postfix postfix-mysql
 wget http://sourceforge.net/projects/postfixadmin/files/postfixadmin/postfixadmin-2.93/postfixadmin-2.93.tar.gz
 tar -xzf postfixadmin-2.93.tar.gz
@@ -68,10 +63,10 @@ mysql -u root -pmysql postfix < ./config/postfixadmin/postfix.sql
 
 # Generation SSL #
 cd /tmp/
-openssl genrsa -out ca.key.pem 4096 -subj '/CN=EPSI/O=EPSI/C=gira.labos-nantes.ovh'
-openssl req -x509 -new -nodes -days 2048 -sha256 -key ca.key.pem -out ca.cert.pem -subj '/C=FR/ST=France/L=Nantes/O=EPSI/OU=EPSI/CN=gira.labos-nantes.ovh'
-openssl genrsa -out mailserver.key 4096 -subj '/CN=EPSI/O=EPSI/C=gira.labos-nantes.ovh'
-openssl req -new -sha256 -key mailserver.key -out mailserver.csr -subj '/C=FR/ST=France/L=Nantes/O=EPSI/OU=EPSI/CN=gira.labos-nantes.ovh'
+openssl genrsa -out ca.key.pem 4096 -subj '/CN=EPSI/O=EPSI/C=mail.gira.labos-nantes.ovh'
+openssl req -x509 -new -nodes -days 2048 -sha256 -key ca.key.pem -out ca.cert.pem -subj '/C=FR/ST=France/L=Nantes/O=EPSI/OU=EPSI/CN=mail.gira.labos-nantes.ovh'
+openssl genrsa -out mailserver.key 4096 -subj '/CN=EPSI/O=EPSI/C=mail.gira.labos-nantes.ovh'
+openssl req -new -sha256 -key mailserver.key -out mailserver.csr -subj '/C=FR/ST=France/L=Nantes/O=EPSI/OU=EPSI/CN=mail.gira.labos-nantes.ovh'
 openssl x509 -req -days 1460 -sha256 -in mailserver.csr -CA ca.cert.pem -CAkey ca.key.pem -CAcreateserial -out mailserver.crt
 chmod 444 ca.cert.pem
 chmod 444 mailserver.crt
@@ -106,6 +101,14 @@ chown spamassassin:spamassassin -R /usr/local/spamassassin
 cp ./config/spamassassin/spamassassin /etc/default/spamassassin
 cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
 
+#Reload configuration
+service apache2 reload
+service bind9 reload
+service spamassassin reload
+service postfix reload
+service dovecot reload
+#Restart daemon
+service apache2 restart
 service bind9 restart
 service spamassassin restart
 service postfix restart

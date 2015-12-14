@@ -1,17 +1,17 @@
 ;
-; BIND data file for local loopback interface
+; BIND data file for eth1 interface
 ;
 $TTL	604800
-@		IN	SOA		hostone.gira.labos-nantes.ovh. root.gira.labos-nantes.ovh. (
+@		IN	SOA		server.gira.labos-nantes.ovh. root.gira.labos-nantes.ovh. (
 			      1		; Serial
 			 604800		; Refresh
 			  86400		; Retry
 			2419200		; Expire
 			 604800 )	; Negative Cache TTL
 
-@		IN	NS		hostone.
+@		IN	NS		server.
 @		IN	MX 10 	mail.gira.labos-nantes.ovh.
 @		IN 	A		172.16.4.1
-hostone	IN	A		172.16.4.1
+server	IN	A		172.16.4.1
 mail	IN	A		172.16.4.1
 pop		IN	CNAME	mail
