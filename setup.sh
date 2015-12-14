@@ -107,20 +107,24 @@ cd /tmp/
 apt-get install -y amavisd-milter clamav-milter gzip bzip2 unzip cpio rpm nomarch cabextract arj arc zoo lzop pax
 adduser clamav amavis
 adduser amavis clamav
-chmod -R 775 /var/lib/amavis/
 cp -r ./config/amavis/* /etc/amavis
-
+/etc/init.d/amavis force-reload
+/etc/init.d/amavis restart
+chmod -R 775 /var/lib/amavis
 #Reload configuration
-service apache2 reload
-service bind9 reload
-service spamassassin reload
-service postfix reload
-service dovecot reload
+/etc/init.d/apache2 reload
+/etc/init.d/amavis force-reload
+/etc/init.d/bind9 reload
+/etc/init.d/clamav-daemon reload
+/etc/init.d/spamassassin reload
+/etc/init.d/postfix reload
+/etc/init.d/dovecot reload
 #Restart daemon
-service apache2 restart
-service bind9 restart
-service amavis restart
-service clamav-daemon restart
-service spamassassin restart
-service postfix restart
-service dovecot restart
+/etc/init.d/apache2 restart
+/etc/init.d/bind9 restart
+/etc/init.d/amavis restart
+/etc/init.d/clamav-daemon restart
+/etc/init.d/spamassassin restart
+/etc/init.d/postfix restart
+/etc/init.d/dovecot restart
+echo "The mailserver is installed"
