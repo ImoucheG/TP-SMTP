@@ -56,6 +56,7 @@ mysql -u root -pmysql < ./config/postfix/setup.sql
 # Users : 
 #	- g.imouche@gira.labos-nantes.ovh::gimouche2015
 #	- a.rousseau@gira.labos-nantes.ovh::arousseau2015
+#	- admin@gira.labos-nantes.ovh::admin2015
 cp ./config/postfixadmin/config.inc.php /var/www/postfixadmin/
 cp /etc/postfix/main.cf /etc/postfix/main.cf_bak
 cp -r ./config/postfix/* /etc/postfix/
