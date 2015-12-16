@@ -95,15 +95,14 @@ groupadd spamassassin
 useradd -s /sbin/nologin -d /usr/local/spamassassin -g spamassassin spamassassin
 mkdir -p /usr/local/spamassassin/log
 chown spamassassin:spamassassin -R /usr/local/spamassassin
-
-cp ./config/spamassassin/spamassassin /etc/default/spamassassin
-cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
+#cp ./config/spamassassin/spamassassin /etc/default/spamassassin
+#cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
 
 
 # Installation of Amavis and ClamAv
 apt-get install -y clamav clamav-daemon clamav-freshclam
 /etc/init.d/clamav-daemon stop
-#freshclam
+#feshclam # commented due to time it uses
 apt-get install -y amavisd-new
 cp ./config/amavis/05-node_id /etc/amavis/conf.d/05-node_id
 apt-get install -y amavisd-new
