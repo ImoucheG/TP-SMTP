@@ -142,5 +142,6 @@ smtpd_client_restrictions =
 smtpd_sender_restrictions =
      reject_non_fqdn_sender,
      reject_unknown_sender_domain
+
 # Amavis
 content_filter = smtp-amavis:[127.0.0.1]:10024

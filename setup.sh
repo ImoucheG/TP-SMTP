@@ -101,13 +101,18 @@ cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
 
 
 # Installation of Amavis and ClamAv
-#apt-get install -y amavisd-milter clamav-milter gzip bzip2 unzip cpio rpm nomarch cabextract arj arc zoo lzop pax
-#adduser clamav amavis
-#adduser amavis clamav
-#cp -r ./config/amavis/* /etc/amavis
-#/etc/init.d/amavis force-reload
-#/etc/init.d/amavis restart
-#chmod -R 775 /var/lib/amavis
+apt-get install -y clamav clamav-daemon clamav-freshclam
+/etc/init.d/clamav-daemon stop
+#freshclam
+apt-get install -y amavisd-new
+cp ./config/amavis/05-node_id /etc/amavis/conf.d/05-node_id
+apt-get install -y amavisd-new
+chmod 775 -R /var/lib/amavis/tmp/
+adduser clamav amavis
+adduser amavis clamav
+cp ./config/clamav/clamd.conf /etc/clamav/clamd.conf
+cp ./config/amavis/15-content_filter_mode /etc/amavis/conf.d/15-content_filter_mode
+cp ./config/amavis/50-user /etc/amavis/conf.d/50-user
 
 #Reload configuration
 /etc/init.d/apache2 reload
