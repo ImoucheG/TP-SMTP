@@ -62,7 +62,6 @@ cp -r ./config/postfix/* /etc/postfix/
 mysql -u root -pmysql postfix < ./config/postfixadmin/postfix.sql
 
 # Generation SSL #
-cd /tmp/
 openssl genrsa -out ca.key.pem 4096 -subj '/CN=EPSI/O=EPSI/C=mail.gira.labos-nantes.ovh'
 openssl req -x509 -new -nodes -days 2048 -sha256 -key ca.key.pem -out ca.cert.pem -subj '/C=FR/ST=France/L=Nantes/O=EPSI/OU=EPSI/CN=mail.gira.labos-nantes.ovh'
 openssl genrsa -out mailserver.key 4096 -subj '/CN=EPSI/O=EPSI/C=mail.gira.labos-nantes.ovh'
@@ -81,7 +80,6 @@ openssl dhparam -out /etc/postfix/dh512.pem 512
 
 # A mettre au propre avec une bonne config
 #Installation DOVECOT
-cd /tmp/
 apt-get install -y dovecot-core dovecot-imapd dovecot-lmtpd dovecot-mysql
 mkdir -p /var/mail/vhosts/gira.labos-nantes.ovh
 groupadd -g 5000 vmail
@@ -103,14 +101,14 @@ cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
 
 
 # Installation of Amavis and ClamAv
-cd /tmp/
-apt-get install -y amavisd-milter clamav-milter gzip bzip2 unzip cpio rpm nomarch cabextract arj arc zoo lzop pax
-adduser clamav amavis
-adduser amavis clamav
-cp -r ./config/amavis/* /etc/amavis
-/etc/init.d/amavis force-reload
-/etc/init.d/amavis restart
-chmod -R 775 /var/lib/amavis
+#apt-get install -y amavisd-milter clamav-milter gzip bzip2 unzip cpio rpm nomarch cabextract arj arc zoo lzop pax
+#adduser clamav amavis
+#adduser amavis clamav
+#cp -r ./config/amavis/* /etc/amavis
+#/etc/init.d/amavis force-reload
+#/etc/init.d/amavis restart
+#chmod -R 775 /var/lib/amavis
+
 #Reload configuration
 /etc/init.d/apache2 reload
 /etc/init.d/amavis force-reload
@@ -119,6 +117,7 @@ chmod -R 775 /var/lib/amavis
 /etc/init.d/spamassassin reload
 /etc/init.d/postfix reload
 /etc/init.d/dovecot reload
+
 #Restart daemon
 /etc/init.d/apache2 restart
 /etc/init.d/bind9 restart
