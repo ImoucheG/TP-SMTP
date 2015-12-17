@@ -141,6 +141,7 @@ chmod -R 775 /var/www/roundcube/
 # Restart daemon
 /etc/init.d/apache2 restart
 /etc/init.d/bind9 restart
+/etc/init.d/clamav-daemon restart
 /etc/init.d/amavis restart
 /etc/init.d/spamassassin restart
 /etc/init.d/postfix restart
