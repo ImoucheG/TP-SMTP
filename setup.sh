@@ -62,7 +62,7 @@ cp /etc/postfix/main.cf /etc/postfix/main.cf_bak
 cp -r ./config/postfix/* /etc/postfix/
 mysql -u root -pmysql postfix < ./config/postfixadmin/postfix.sql
 
-# Generation SSL #
+# SSL certificates generation
 openssl genrsa -out ca.key.pem 4096 -subj '/CN=EPSI/O=EPSI/C=mail.gira.labos-nantes.ovh'
 openssl req -x509 -new -nodes -days 2048 -sha256 -key ca.key.pem -out ca.cert.pem -subj '/C=FR/ST=France/L=Nantes/O=EPSI/OU=EPSI/CN=mail.gira.labos-nantes.ovh'
 openssl genrsa -out mailserver.key 4096 -subj '/CN=EPSI/O=EPSI/C=mail.gira.labos-nantes.ovh'
@@ -79,8 +79,7 @@ mv mailserver.crt /etc/ssl/certs/
 openssl dhparam -out /etc/postfix/dh2048.pem 2048
 openssl dhparam -out /etc/postfix/dh512.pem 512
 
-# A mettre au propre avec une bonne config
-#Installation DOVECOT
+# Dovecot Installation
 apt-get install -y dovecot-core dovecot-imapd dovecot-lmtpd dovecot-mysql
 mkdir -p /var/mail/vhosts/gira.labos-nantes.ovh
 groupadd -g 5000 vmail
@@ -90,20 +89,22 @@ cp -r ./config/dovecot/* /etc/dovecot/
 chown -R vmail:dovecot /etc/dovecot/
 chmod -R o-rwx /etc/dovecot/
 
-# Spamassassin installation
+# Spamassassin Installation
 apt-get install -y spamc spamassassin --fix-missing
 groupadd spamassassin
 useradd -s /sbin/nologin -d /usr/local/spamassassin -g spamassassin spamassassin
 mkdir -p /usr/local/spamassassin/log
-chown spamassassin:spamassassin -R /usr/local/spamassassin
+chown spamassassin:spamassassin -R /usr/local/spamassassin.
+# Configuration files not used due to amavis spamassassin daemon
 #cp ./config/spamassassin/spamassassin /etc/default/spamassassin
 #cp ./config/spamassassin/local.cf /etc/spamassassin/local.cf
 
-
-# Installation of Amavis and ClamAv
+# ClamAV Installation
 apt-get install -y clamav clamav-daemon clamav-freshclam
 /etc/init.d/clamav-daemon stop
-#feshclam # commented due to time it uses
+#feshclam # commented due to time it takes
+
+# Amavis Installation
 apt-get install -y amavisd-new
 cp ./config/amavis/05-node_id /etc/amavis/conf.d/05-node_id
 apt-get install -y amavisd-new
@@ -114,7 +115,15 @@ cp ./config/clamav/clamd.conf /etc/clamav/clamd.conf
 cp ./config/amavis/15-content_filter_mode /etc/amavis/conf.d/15-content_filter_mode
 cp ./config/amavis/50-user /etc/amavis/conf.d/50-user
 
-#Reload configuration
+# Roundcube installation
+wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.1.3/roundcubemail-1.1.3.tar.gz
+tar -xzf roundcubemail-1.1.3.tar.gz
+mv roundcubemail-1.1.3 /var/www/roundcube
+mysql -u root -pmysql < ./config/roundcube/setup.sql
+mysql -u root -pmysql -Droundcubemail < /var/www/roundcube/SQL/mysql.initial.sql
+
+
+# Reload configuration
 /etc/init.d/apache2 reload
 /etc/init.d/amavis force-reload
 /etc/init.d/bind9 reload
@@ -123,11 +132,10 @@ cp ./config/amavis/50-user /etc/amavis/conf.d/50-user
 /etc/init.d/postfix reload
 /etc/init.d/dovecot reload
 
-#Restart daemon
+# Restart daemon
 /etc/init.d/apache2 restart
 /etc/init.d/bind9 restart
 /etc/init.d/amavis restart
-/etc/init.d/clamav-daemon restart
 /etc/init.d/spamassassin restart
 /etc/init.d/postfix restart
 /etc/init.d/dovecot restart
