@@ -38,12 +38,10 @@ mysql_install_db
 
 # Apache Installation
 apt-get install -y apache2
-cat ./config/apache2/ports.conf >> /etc/apache2/ports.conf
 cp ./config/apache2/mailserver.conf /etc/apache2/conf-available/
 cd /etc/apache2/conf-available/
 a2enconf mailserver
 cd /tmp/
-## TODO ##
 
 # PHP Installation
 apt-get install -y php5 libapache2-mod-php5 php5-fpm php5-mysql php5-imap
