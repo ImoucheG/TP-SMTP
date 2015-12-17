@@ -1,8 +1,8 @@
 # Setup SMTP Server
-# Update System
 cp -R ./config/ /tmp/
 cd /tmp/
-#
+
+# System update - upgrade
 apt-get update -y && apt-get upgrade -y
 apt-get install -y sudo
 
@@ -47,6 +47,8 @@ cd /tmp/
 
 # PHP Installation
 apt-get install -y php5 libapache2-mod-php5 php5-fpm php5-mysql php5-imap
+echo 'date.timezone = Europe/Paris' >> /etc/php5/apache2/php.ini
+echo 'suhosin.session.encrypt = off' >> /etc/php5/apache2/php.ini
 
 # Postfix Installation ('Local Only')
 # Login : admin@labos-nantes.ovh (should be : admin@gira.labos-nantes.ovh ?)
@@ -124,12 +126,12 @@ cp ./config/amavis/15-content_filter_mode /etc/amavis/conf.d/15-content_filter_m
 cp ./config/amavis/50-user /etc/amavis/conf.d/50-user
 
 # Roundcube installation
-wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.1.3/roundcubemail-1.1.3-complete.tar.gz
+wget http://imoucheg.com/roundcubemail-1.1.3-complete.tar.gz
 tar -xzf roundcubemail-1.1.3-complete.tar.gz
 mv roundcubemail-1.1.3 /var/www/roundcube
 mysql -u root -pmysql < ./config/roundcube/setup.sql
 mysql -u root -pmysql -Droundcubemail < /var/www/roundcube/SQL/mysql.initial.sql
-cp ./config/roundcube/config.inc.php /var/www/rouncube/config/
+cp ./config/roundcube/config.inc.php /var/www/roundcube/config/
 chown -R root:www-data /var/www/roundcube/
 chmod -R 775 /var/www/roundcube/
 

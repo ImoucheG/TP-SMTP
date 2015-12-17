@@ -1,3 +1,4 @@
 CREATE DATABASE roundcubemail;
-GRANT ALL PRIVILEGES ON roundcubemail.* TO root@localhost IDENTIFIED BY 'mysql';
+CREATE USER 'roundcube'@'localhost' IDENTIFIED BY 'roundcube';
+GRANT ALL PRIVILEGES ON roundcubemail.* TO roundcube@localhost IDENTIFIED BY 'roundcube';
 FLUSH PRIVILEGES;
