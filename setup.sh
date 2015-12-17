@@ -31,6 +31,7 @@ ifdown eth0 eth1
 ifup eth0 eth1
 
 # MySQL Server Installation
+DEBIAN_FRONTEND="noninteractive"
 echo 'mysql-server mysql-server/root_password password mysql' | debconf-set-selections
 echo 'mysql-server mysql-server/root_password_again password mysql' | debconf-set-selections
 apt-get install -y mysql-server
