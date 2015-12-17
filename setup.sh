@@ -52,6 +52,10 @@ echo 'suhosin.session.encrypt = off' >> /etc/php5/apache2/php.ini
 # Login : admin@labos-nantes.ovh (should be : admin@gira.labos-nantes.ovh ?)
 # Password : admin2015
 # Domain : server.gira.labos-nantes.ovh (should be : gira.labos-nantes.ovh ?)
+DEBIAN_FRONTEND="noninteractive"
+echo 'postfix postfix/main_mailer_type select Internet Site' | debconf-set-selections
+echo 'postfix postfix/mailname string gira.labos-nantes.ovh' | debconf-set-selections
+echo 'postfix postfix/destinations string localhost, localhost.$localdomain' | debconf-set-selections
 apt-get install -y postfix postfix-mysql
 wget http://imoucheg.com/postfixadmin-2.93.tar.gz
 tar -xzf postfixadmin-2.93.tar.gz
