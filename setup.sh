@@ -52,9 +52,9 @@ apt-get install -y postfix postfix-mysql
 wget http://imoucheg.com/postfixadmin-2.93.tar.gz
 tar -xzf postfixadmin-2.93.tar.gz
 mv postfixadmin-2.93 /var/www/postfixadmin
-chown -R root:www-data /var/www/postfixadmin
-chmod -R 775 /var/www/postfixadmin
 mysql -u root -pmysql < ./config/postfix/setup.sql
+chown -R root:www-data /var/www/postfixadmin/
+chmod -R 775 /var/www/postfixadmin/
 
 # Password postfixadmin: postfix2015
 # Users : 
@@ -122,10 +122,12 @@ cp ./config/amavis/50-user /etc/amavis/conf.d/50-user
 # Roundcube installation
 wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.1.3/roundcubemail-1.1.3-complete.tar.gz
 tar -xzf roundcubemail-1.1.3-complete.tar.gz
-mv roundcubemail-1.1.3-complete /var/www/roundcube
+mv roundcubemail-1.1.3 /var/www/roundcube
 mysql -u root -pmysql < ./config/roundcube/setup.sql
 mysql -u root -pmysql -Droundcubemail < /var/www/roundcube/SQL/mysql.initial.sql
-
+cp ./config/roundcube/config.inc.php /var/www/rouncube/config/
+chown -R root:www-data /var/www/roundcube/
+chmod -R 775 /var/www/roundcube/
 
 # Reload configuration
 /etc/init.d/apache2 reload
