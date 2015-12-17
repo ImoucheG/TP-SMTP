@@ -3,8 +3,12 @@
 cp -R ./config/ /tmp/
 cd /tmp/
 #
-#apt-get update -y && apt-get upgrade -y
+apt-get update -y && apt-get upgrade -y
 apt-get install -y sudo
+
+# SSH Configuration
+apt-get install -y openssh-server
+cp ./config/ssh/sshd_config /etc/ssh/sshd_config
 
 # BIND Installation
 apt-get install resolvconf -y
@@ -116,9 +120,9 @@ cp ./config/amavis/15-content_filter_mode /etc/amavis/conf.d/15-content_filter_m
 cp ./config/amavis/50-user /etc/amavis/conf.d/50-user
 
 # Roundcube installation
-wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.1.3/roundcubemail-1.1.3.tar.gz
-tar -xzf roundcubemail-1.1.3.tar.gz
-mv roundcubemail-1.1.3 /var/www/roundcube
+wget http://sourceforge.net/projects/roundcubemail/files/roundcubemail/1.1.3/roundcubemail-1.1.3-complete.tar.gz
+tar -xzf roundcubemail-1.1.3-complete.tar.gz
+mv roundcubemail-1.1.3-complete /var/www/roundcube
 mysql -u root -pmysql < ./config/roundcube/setup.sql
 mysql -u root -pmysql -Droundcubemail < /var/www/roundcube/SQL/mysql.initial.sql
 
